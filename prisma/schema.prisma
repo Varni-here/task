@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Event {
+  id               Int       @id @default(autoincrement())
+  title            String
+  description      String?
+  startDate        DateTime
+  endDate          DateTime
+  isRecurring      Boolean   @default(false)
+  frequency        String?   // DAILY, WEEKLY, MONTHLY
+  daysOfWeek       String?
+  recurringEndDate DateTime?
+  isActive         Boolean   @default(true)
+
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}

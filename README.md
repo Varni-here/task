@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Event Calendar Application
 
-## Getting Started
+A modern event management application built with Next.js, Prisma, and FullCalendar. Features include recurring events, mobile-responsive design, and CRUD operations.
 
-First, run the development server:
+## Features
+
+- Interactive calendar view with FullCalendar
+- Recurring events (daily, weekly, monthly)
+- Mobile-responsive design
+- Form validation with date restrictions
+- Event management with soft delete
+- Active/Stopped event filtering
+- Event details modal
+
+## Tech Stack
+
+- **Frontend**: Next.js 14, React, Tailwind CSS
+- **Database**: SQLite with Prisma ORM
+- **Calendar**: FullCalendar
+- **Styling**: Tailwind CSS
+
+## Prerequisites
+
+- Node.js 18+
+- npm/yarn/pnpm
+
+## Setup Instructions
+
+### 1. Clone and Install
+
+```bash
+git clone 
+cd task
+npm install
+```
+
+### 2. Environment Configuration
+
+Copy the example environment file:
+
+```bash
+cp .env.example .env
+```
+
+Update `.env` with your database path:
+
+```env
+DATABASE_URL="file:./dev.db"
+```
+
+### 3. Database Setup
+
+Generate Prisma client and run migrations:
+
+```bash
+npx prisma generate
+npx prisma db push
+```
+
+### 4. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## API Endpoints
 
-## Learn More
+- `GET /api/events` - List all events
+- `POST /api/events` - Create new event
+- `GET /api/events/[id]` - Get single event
+- `PUT /api/events/[id]` - Update event
+- `DELETE /api/events/[id]` - Soft delete event
 
-To learn more about Next.js, take a look at the following resources:
+## Database Schema
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Event Model
+- `id` - Unique identifier
+- `title` - Event title
+- `description` - Event description
+- `startDate` - Start date/time
+- `endDate` - End date/time
+- `isRecurring` - Recurring flag
+- `frequency` - Recurrence pattern
+- `recurringEndDate` - End date for recurring events
+- `daysOfWeek` - Days for weekly recurrence
+- `isActive` - Soft delete flag
